@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Добавить товар</h2>
+
+<form action={% url 'add_product' %} method="post">
+  {% csrf_token %}
+  Код товара<br>
+  <input type="text" name="code">
+  <br>
+  Цвет<br>
+  <input type="text" name="colour">
+  <br>
+  Размер<br>
+  <input type="text" name="size">
+  <br>
+  Пол<br>
+  <input type="text" name="gender">
+  <br>
+  {% if success %}
+  <input type="hidden" name="success_message" value={{success}}>
+  {% endif %}
+  <br><br>
+  <input type="submit" value="Добавить">
+</form>
+
+
+</body>
+</html>

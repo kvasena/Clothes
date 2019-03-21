@@ -1,0 +1,4 @@
+*.pyc
+.idea/
+virtual_env_shop/
+shop/pomazan_shop/migrations/
