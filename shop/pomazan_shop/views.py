@@ -6,8 +6,8 @@ from pomazan_shop.forms import ProductForm
 from pomazan_shop.models import Product
 
 
-
 SUCCESS_MESSAGE = u'Товар успешно добален'
+ERROR_MESSAGE = u'Поля заполнены не верно'
 
 
 def index(request):
@@ -19,7 +19,6 @@ def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
             new_product = Product(
                 code=form.cleaned_data['code'],
                 gender=form.cleaned_data['gender'],
@@ -28,7 +27,15 @@ def add_product(request):
             )
             new_product.save()
             return render(request,
-                          'add_product.html', {'success': SUCCESS_MESSAGE})
+                          'add_product.html',
+                          {'message': SUCCESS_MESSAGE,
+                           'products': Product.objects.all().
+                                values_list('id', 'code',
+                                            'gender', 'colour',
+                                            'size', 'date_of_sale',
+                                            'created_on')})
+        return render(request,
+                      'add_product.html', {'message': ERROR_MESSAGE})
     return render(request, 'add_product.html')
 
 

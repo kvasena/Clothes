@@ -18,12 +18,31 @@
   Пол<br>
   <input type="text" name="gender">
   <br>
-  {% if success %}
-  <input type="hidden" name="success_message" value={{success}}>
+  {% if message %}
+  <input name="success_message" value={{message}}>
   {% endif %}
   <br><br>
   <input type="submit" value="Добавить">
 </form>
+<br><br>
+{% if products %}
+<table>
+<tr>
+    <th></th>
+    <th>Код товара</th>
+    <th>Пол</th>
+    <th>Цвет</th>
+    <th>Размер</th>
+    <th>Дата продажи</th>
+    <th>Дата добавления</th>
+  </tr>
+{% for p in products %}
+  <tr>
+      <td>{{ p }}</td>
+  </tr>
+{% endfor %}
+</table>
+{% endif%}
 
 
 </body>
