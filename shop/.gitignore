@@ -1,5 +1,5 @@
 *.pyc
-.idea/
+../.idea/
 virtual_env_shop/
 shop/pomazan_shop/migrations/
 manage.py
