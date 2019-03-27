@@ -4,71 +4,40 @@
 
 <h2>Поиск</h2>
 
-<form>
-
+<form action={% url 'search_product' %} method="post">
+  {% csrf_token %}
   Код товара<br>
 
-  <input type="text" name="productcode">
+  <input type="text" name="code">
   <br><br>
   <input type="submit" value="Искать">
+  <br>
 
+  {% if message %}
+    <label> {{  message }} </label>
+  {% endif %}
+  <br><br>
 </form>
 
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
 <br><br>
-<table name="search_result">
-  <tr>
-    <th>Company</th>
-    <th>Contact</th>
-    <th>Country</th>
+{% if products %}
+<table>
+<tr>
+    <th></th>
+    <th>Код товара</th>
+    <th>Пол</th>
+    <th>Цвет</th>
+    <th>Размер</th>
+    <th>Дата продажи</th>
+    <th>Дата добавления</th>
   </tr>
+{% for p in products %}
   <tr>
-    <td>Alfreds Futterkiste</td>
-    <td>Maria Anders</td>
-    <td>Germany</td>
+      <td>{{ p }}</td>
   </tr>
-  <tr>
-    <td>Centro comercial Moctezuma</td>
-    <td>Francisco Chang</td>
-    <td>Mexico</td>
-  </tr>
-  <tr>
-    <td>Ernst Handel</td>
-    <td>Roland Mendel</td>
-    <td>Austria</td>
-  </tr>
-  <tr>
-    <td>Island Trading</td>
-    <td>Helen Bennett</td>
-    <td>UK</td>
-  </tr>
-  <tr>
-    <td>Laughing Bacchus Winecellars</td>
-    <td>Yoshi Tannamuri</td>
-    <td>Canada</td>
-  </tr>
-  <tr>
-    <td>Magazzini Alimentari Riuniti</td>
-    <td>Giovanni Rovelli</td>
-    <td>Italy</td>
-  </tr>
+{% endfor %}
 </table>
+{% endif%}
 
 </body>
 </html>
