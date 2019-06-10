@@ -1,49 +1,69 @@
 <!DOCTYPE html>
-<html>
-<body>
+    <html>
 
-<h2>Добавить товар</h2>
-
-<form action={% url 'add_product' %} method="post">
-  {% csrf_token %}
-  Код товара<br>
-  <input type="text" name="code">
-  <br>
-  Цвет<br>
-  <input type="text" name="colour">
-  <br>
-  Размер<br>
-  <input type="text" name="size">
-  <br>
-  Пол<br>
-  <input type="text" name="gender">
-  <br>
-  {% if message %}
-    <label> {{  message }} </label>
-  {% endif %}
-  <br><br>
-  <input type="submit" value="Добавить">
-</form>
-<br><br>
-{% if products %}
-<table>
-<tr>
-    <th></th>
-    <th>Код товара</th>
-    <th>Пол</th>
-    <th>Цвет</th>
-    <th>Размер</th>
-    <th>Дата продажи</th>
-    <th>Дата добавления</th>
-  </tr>
-{% for p in products %}
-  <tr>
-      <td>{{ p }}</td>
-  </tr>
-{% endfor %}
-</table>
-{% endif%}
+    <head>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
 
 
-</body>
+    <body>
+    <h2>Добавить товар</h2>
+    <form action={% url 'add_product' %} method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Код товара</label>
+            <input class="form-control" type="text" name="code">
+        </div>
+
+        <div class="form-group">
+            <label>Цвет</label>
+            <input class="form-control" type="text"  name="colour">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Размер</label>
+            <input class="form-control" type="text" name="size">
+        </div>
+        <div class="form-control-group">
+            <label for="exampleInputEmail1">Пол</label>
+            <select class="form-control form-control-sm" name="gender">
+                 <option>М</option>
+                 <option>Ж</option>
+            </select>
+        </div>
+        <br>
+        {% if message %}
+            <small id="emailHelp" class="form-text text-muted">{{ message }}</small>
+        {% endif %}
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br><br>
+
+
+    {% if products %}
+        <table class="table table-striped">
+            <tr>
+                <th></th>
+                <th>Код товара</th>
+                <th>Пол</th>
+                <th>Цвет</th>
+                <th>Размер</th>
+                <th>Дата продажи</th>
+                <th>Дата добавления</th>
+            </tr>
+            {% for p in products %}
+                  <tr>
+                      <td>{{ p.id }}</td>
+                      <td>{{ p.code }}</td>
+                      <td>{{ p.gender }}</td>
+                      <td>{{ p.colour }}</td>
+                      <td>{{ p.size }}</td>
+                      <td>{{ p.date_of_sale }}</td>
+                      <td>{{ p.created_on }}</td>
+                  </tr>
+            {% endfor %}
+        </table>
+    {% endif%}
+    </body>
+
 </html>

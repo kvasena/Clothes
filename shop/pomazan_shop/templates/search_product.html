@@ -1,43 +1,55 @@
 <!DOCTYPE html>
-<html>
-<body>
+    <html>
 
-<h2>Поиск</h2>
+    <head>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
 
-<form action={% url 'search_product' %} method="post">
-  {% csrf_token %}
-  Код товара<br>
 
-  <input type="text" name="code">
-  <br><br>
-  <input type="submit" value="Искать">
-  <br>
+    <body>
+        <h2>Поиск</h2>
 
-  {% if message %}
-    <label> {{  message }} </label>
-  {% endif %}
-  <br><br>
-</form>
+        <form action={% url 'search_product' %} method="post">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Код товара"
+                     aria-label="Код товара" aria-describedby="button-addon2" name="code">
+              <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Искать</button>
+              </div>
+            </div>
+          {% if message %}
+            <label> {{  message }} </label>
+          {% endif %}
+          <br><br>
+        </form>
 
-<br><br>
-{% if products %}
-<table>
-<tr>
-    <th></th>
-    <th>Код товара</th>
-    <th>Пол</th>
-    <th>Цвет</th>
-    <th>Размер</th>
-    <th>Дата продажи</th>
-    <th>Дата добавления</th>
-  </tr>
-{% for p in products %}
-  <tr>
-      <td>{{ p }}</td>
-  </tr>
-{% endfor %}
-</table>
-{% endif%}
+        <br><br>
+        {% if products %}
+            <table class="table table-striped">
+                <tr>
+                    <th></th>
+                    <th>Код товара</th>
+                    <th>Пол</th>
+                    <th>Цвет</th>
+                    <th>Размер</th>
+                    <th>Дата продажи</th>
+                    <th>Дата добавления</th>
+                  </tr>
+                {% for p in products %}
+                    <tr>
+                      <td>{{ p.id }}</td>
+                      <td>{{ p.code }}</td>
+                      <td>{{ p.gender }}</td>
+                      <td>{{ p.colour }}</td>
+                      <td>{{ p.size }}</td>
+                      <td>{{ p.date_of_sale }}</td>
+                      <td>{{ p.created_on }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif%}
 
-</body>
+    </body>
 </html>

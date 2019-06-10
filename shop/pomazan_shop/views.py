@@ -30,7 +30,7 @@ def add_product(request):
                           'add_product.html',
                           {'message': SUCCESS_MESSAGE,
                            'products': Product.objects.all().
-                                values_list('id', 'code',
+                                values('id', 'code',
                                             'gender', 'colour',
                                             'size', 'date_of_sale',
                                             'created_on')})
@@ -46,8 +46,8 @@ def search_product(request, ):
             return render(request,
                           'search_product.html',
                           {'products': Product.objects.filter(code=form.cleaned_data['code']).
-                            values_list('id', 'code', 'gender', 'colour',
-                                        'size', 'date_of_sale', 'created_on')})
+                            values('id', 'code', 'gender', 'colour',
+                                   'size', 'date_of_sale', 'created_on')})
         else:
             return render(request,
                           'search_product.html', {'message': ERROR_MESSAGE})
